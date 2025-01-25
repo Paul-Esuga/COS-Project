@@ -1,0 +1,70 @@
+#include <iostream>
+#include <string> //I imported this to use getline
+#include <algorithm>//I imported this to use transform for the lowercase function
+using namespace std;
+//function to trim trailing and leading whitespace 
+string trim(const string& str) {
+  size_t start = 0;
+  size_t end = str.length();
+  // Find the first non-whitespace character
+  while (start < end && isspace(str[start])) {
+      ++start;
+    }
+    // Find the last non-whitespace character
+  while (end > start && isspace(str[end - 1])) {
+      --end;
+    }
+    // Return the trimmed substring
+  return str.substr(start, end - start);
+}
+  //function to make user input lowercase
+string LowerCase(string basketcase) {
+  string lower = basketcase;
+  transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
+  return lower;
+}
+int main() {
+  //variables for the menu system
+  string menu_choice;
+  bool valid_choice = false;//was the users input valid?
+  string searcher_indiana;
+  //User introduction to result management software
+  cout << "Welcome to the student result management system"<< endl;
+  cout << "               MAIN-MENU                       "<< endl;
+  cout<<"To SEARCH for student result press--- S"<<endl;
+  cout<<"To UPDATE a student's result press--- U"<<endl;
+  cout<<"To SAVE a student's result press--- F"<<endl;
+  cout<<"To VIEW a student's result press--- V"<<endl;
+  cout<<"To EXIT the program--- E\n"<<endl;
+  while(valid_choice == false){
+  cout<<"What would you like to do?"<<endl;
+  getline(cin,menu_choice);//user input for menu prompt
+  //input conversion(trimming whitespace and converting to lowecase)
+  string lower_menu_choice = LowerCase(menu_choice);
+  string modo_menu_choice = trim(lower_menu_choice);
+  //conditionals block for checking user input
+  if (modo_menu_choice == "s" || "search"){
+    valid_choice = true;
+    cout << "---YOU CHOSE TO SEARCH FOR A STUDENT---" <<endl;
+    cout <<"What is their matric number?\n";
+    getline(cin,searcher_indiana);
+  }
+  else if(modo_menu_choice == "u" || "update"){
+    //pass
+  }
+  //user chose to save a students result
+  else if(modo_menu_choice == "f" || "save"){
+    //pass
+  }
+  else if(modo_menu_choice == "v" || "view"){
+    //pass
+  }else if(modo_menu_choice == "e" || "exit"){
+    //pass
+  }
+  else {
+    cout<<"That doesnt seem quite right. Please enter a valid option" << endl;
+  }
+  //while loop exit indent
+  }
+  return 0;
+}
