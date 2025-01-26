@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>//file stuff
+#include <sstream>
 #include <string> //I imported this to use getline
 #include <algorithm>//I imported this to use transform for the lowercase function
 using namespace std;
@@ -24,7 +26,25 @@ string LowerCase(string basketcase) {
   return lower;
 }
 void search_func(string searcher_indiana){
-  //pass
+  ifstream inputfile;
+  string fileline;
+  inputfile.open("Student_records.txt");
+  string matric_no, name;
+  int mth,sa,na,qc,pt;
+  float gpa;
+  if (inputfile.is_open()){
+    bool found_record = false;
+    while(getline(inputfile,fileline)){
+        if (fileline.find(searcher_indiana) != string::npos){
+          cout <<"------------" << endl;
+          cout <<"RECORD FOUND" << endl;
+          cout <<"------------"<< endl;
+          cout <<fileline<<endl;
+          found_record = true;
+          break;
+        }
+    }
+  }
 }
 int main() {
   //variables for the menu system
@@ -46,27 +66,27 @@ int main() {
   string lower_menu_choice = LowerCase(menu_choice);
   string modo_menu_choice = trim(lower_menu_choice);
   //conditionals block for checking user input
-  if (modo_menu_choice == "s" || "search"){
+  if (modo_menu_choice == "s" || modo_menu_choice == "search"){
     valid_choice = true;
     cout << "---YOU CHOSE TO SEARCH FOR A STUDENT---" <<endl;
     cout <<"What is their matric number?\n";
-    getline(cin,searcher_indiana);
+    getline(cin,stud_to_be);
     //activate search function
     search_func(stud_to_be);
   }
-  else if(modo_menu_choice == "u" || "update"){
+  else if(modo_menu_choice == "u" || modo_menu_choice == "update"){
     valid_choice = true;
     //pass
   }
   //user chose to save a students result
-  else if(modo_menu_choice == "f" || "save"){
+  else if(modo_menu_choice == "f" || modo_menu_choice == "save"){
     valid_choice = true;
     //pass
   }
-  else if(modo_menu_choice == "v" || "view"){
+  else if(modo_menu_choice == "v" || modo_menu_choice == "view"){
     valid_choice = true;
     //pass
-  }else if(modo_menu_choice == "e" || "exit"){
+  }else if(modo_menu_choice == "e" || modo_menu_choice == "exit"){
     valid_choice = true;
     cout <<"---YOU HAVE EXITED THE PROGRAM---"<< endl;
     goto end_of_program;
