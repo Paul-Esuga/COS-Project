@@ -5,9 +5,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-std::vector<std::string> matlines;//VECTOR CONTAINING MAT NUMBERS
-std::vector<std::string> namelines;//VECTOR CONTAINING NAMES
-std::vector<std::string> scorelines;//VECTOR CONTAINING SCORES
+vector<std::string> matlines;//VECTOR CONTAINING MAT NUMBERS
+vector<std::string> namelines;//VECTOR CONTAINING NAMES
+vector<std::string> scorelines;//VECTOR CONTAINING SCORES
 
 void deleterecord()
 {
@@ -29,7 +29,7 @@ void deleterecord()
         }
     else
         {
-            std::cout << "INVALID NUMBER ENTERED, NOW RESTARTING PROCESS" <<"\n\n";
+            cout << "INVALID NUMBER ENTERED, NOW RESTARTING PROCESS" <<"\n\n";
             cin.clear();
             deleterecord();
             return;
@@ -133,7 +133,7 @@ void addrecords()//FUNCTION TO ADD NEW RECORDS
 
 void saveupdates()
 {
-    std::ofstream file("UPDATEDMATNO.txt");//TO SAVE THE UPDATES TO A FILE
+    ofstream file("UPDATEDMATNO.txt");//TO SAVE THE UPDATES TO A FILE
     vector<string> data = {matlines};
 
     if (file.is_open()) {
@@ -148,7 +148,7 @@ void saveupdates()
         std::cerr << "Unable to open file";
     }
 
-    std::ofstream filen("UPDATEDNAME.txt");//TO SAVE THE UPDATES TO A FILE
+    ofstream filen("UPDATEDNAME.txt");//TO SAVE THE UPDATES TO A FILE
     vector<string> datan = {namelines};
 
     if (filen.is_open()) {
@@ -163,7 +163,7 @@ void saveupdates()
         std::cerr << "Unable to open file";
     }
 
-    std::ofstream filesc("UPDATEDSCORE.txt");//TO SAVE THE UPDATES TO A FILE
+    ofstream filesc("UPDATEDSCORE.txt");//TO SAVE THE UPDATES TO A FILE
     vector<string> datasc = {scorelines};
 
     if (filesc.is_open()) {
@@ -175,7 +175,7 @@ void saveupdates()
         }
         filesc.close();
     } else {
-        std::cerr << "Unable to open file";
+        cerr << "Unable to open file";
     }
 }
 
@@ -201,11 +201,11 @@ void updatexisting()//to edit existing records
 
     if (smatselect.size() < 3 && smatselect.size() > 0)//TO ENSURE THE STRING IS LESS THAN 3 BUT GREATER THAN 0
         {
-            std::cout << "Input is within the allowed size.\n";
+            cout << "Input is within the allowed size.\n";
         }
     else
         {
-            std::cout << "INVALID NUMBER ENTERED, NOW RESTARTING PROCESS" <<"\n\n";
+            cout << "INVALID NUMBER ENTERED, NOW RESTARTING PROCESS" <<"\n\n";
             cin.clear();
             updatexisting();
             return;
@@ -249,11 +249,11 @@ void indirecord()
 
     if (ZZ.size() < 3 && ZZ.size() > 0)//TO ENSURE THE STRING IS LESS THAN 3 BUT GREATER THAN 0
         {
-            std::cout << "Input is within the allowed size.\n";
+            cout << "Input is within the allowed size.\n";
         }
     else
         {
-            std::cout << "INVALID NUMBER ENTERED, NOW RESTARTING PROCESS" <<"\n\n";
+            cout << "INVALID NUMBER ENTERED, NOW RESTARTING PROCESS" <<"\n\n";
             cin.clear();
             indirecord();
             return;
@@ -283,8 +283,9 @@ void mainmenu()
     cout << "TO UPDATE & SAVE RECORDS TO FILE..........S" << "\n";
     cout << "TO CREATE FILE FOR INDIVIDUAL RECORD......I" << "\n\n";
     cin >> option;
-    if(option == "R" || option == "r")
 
+    if(option == "R" || option == "r")
+        {
             displayall();
         }
     else if(option == "A" || option == "a")
@@ -322,11 +323,11 @@ void mainmenu()
 
 
 int main() {
-    std::ifstream matfile("MATRICNUMBERS.txt");//LOADING THE TEXT FILES INTO VECTORS
-    std::string matline;
+    ifstream matfile("MATRICNUMBERS.txt");//LOADING THE TEXT FILES INTO VECTORS
+    string matline;
 
     if (matfile.is_open()) {
-        while (std::getline(matfile, matline)) {
+        while (getline(matfile, matline)) {
             matlines.push_back(matline);
         }
         matfile.close();
@@ -335,11 +336,11 @@ int main() {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////
-    std::ifstream namefile("NAME.txt");//LOADING THE TEXT FILES INTO VECTORS
-    std::string nameline;
+    ifstream namefile("NAME.txt");//LOADING THE TEXT FILES INTO VECTORS
+    string nameline;
 
     if (namefile.is_open()) {
-        while (std::getline(namefile, nameline)) {
+        while (getline(namefile, nameline)) {
             namelines.push_back(nameline);
         }
         namefile.close();
@@ -347,11 +348,11 @@ int main() {
         std::cerr << "Unable to open file";
     }
     //////////////////////////////////////////////////////////////////////////////////////
-    std::ifstream scorefile("SCORES.txt");//LOADING THE TEXT FILES INTO VECTORS
-    std::string scoreline;
+    ifstream scorefile("SCORES.txt");//LOADING THE TEXT FILES INTO VECTORS
+    string scoreline;
 
     if (scorefile.is_open()) {
-        while (std::getline(scorefile, scoreline)) {
+        while (getline(scorefile, scoreline)) {
             scorelines.push_back(scoreline);
         }
         scorefile.close();
