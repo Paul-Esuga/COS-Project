@@ -9,6 +9,36 @@ std::vector<std::string> matlines;//VECTOR CONTAINING MAT NUMBERS
 std::vector<std::string> namelines;//VECTOR CONTAINING NAMES
 std::vector<std::string> scorelines;//VECTOR CONTAINING SCORES
 
+void deleterecord()
+{
+    int A;//LAST DIGIT OF MAT NO
+    cout << "ENTER THE LAST TWO DIGITS OF THE MATRICULATION NUMBER OF THE RECORD YOU WISH TO CREATE A FIE OF" << endl;//THIS SECTION FOCUSES ON SELECTING A SPECIFIC RECORD
+    cout << "2023/SEN/0";
+    while(!(cin >> A))//TO ENSURE THAT INPUT IS AN INTEGER
+        {
+            cout << "Invalid input. Please enter an integer: ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+
+    string AA = to_string(A);//CONVERT THE DIGITS TO STRING
+
+    if (AA.size() < 3 && AA.size() > 0)//TO ENSURE THE STRING IS LESS THAN 3 BUT GREATER THAN 0
+        {
+            std::cout << "Input is within the allowed size.\n";
+        }
+    else
+        {
+            std::cout << "INVALID NUMBER ENTERED, NOW RESTARTING PROCESS" <<"\n\n";
+            cin.clear();
+            deleterecord();
+            return;
+        }
+    scorelines[A] = "null";
+    matlines[A] = "null";
+    namelines[A] = "null";
+}
+
 void addrecords()//FUNCTION TO ADD NEW RECORDS
 {
     int myear;//MATRICULATION YEAR
@@ -159,10 +189,8 @@ void updatexisting()//to edit existing records
     int newscore;//UPDATED SCORE
     cout << "ENTER THE LAST TWO DIGITS OF THE MATRICULATION NUMBER OF THE RECORD YOU WISH TO UPDATE" << endl;//THIS SECTION FOCUSES ON SELECTING A SPECIFIC RECORD
     cout << "2023/SEN/0";
-    cin >> matselect;
-    cout << "\n";
 
-    if(!(matselect))//TO ENSURE THAT INPUT IS AN INTEGER
+    while(!(cin >> matselect))//TO ENSURE THAT INPUT IS AN INTEGER
         {
             cout << "Invalid input. Please enter an integer: ";
             cin.clear();
@@ -189,7 +217,8 @@ void updatexisting()//to edit existing records
     cout << "ENTER NEW SCORE: " << "\n";
     cin >> newscore;
     string snewscore = to_string(newscore); //CONVERT NEW SCORE TO STRING
-    scorelines[matselect] = snewscore;// REPLACING THE OLD SCORE IN THE VECTOR BY TAKING ITS LOCATION
+    scorelines[matselect] = snewscore;// REPLACING THE OLD SCORE IN THE VECTOR BY TAKING ITS formula
+
 }
 
 
@@ -201,6 +230,91 @@ void displayall()
         {
             cout << matlines[I] <<" | "<< scorelines[I] << " | " << namelines[I] << endl;
         }
+    cout << "\n\n";
+}
+
+void indirecord()
+{
+    int Z;//LAST DIGIT OF MAT NO
+    cout << "ENTER THE LAST TWO DIGITS OF THE MATRICULATION NUMBER OF THE RECORD YOU WISH TO CREATE A FIE OF" << endl;//THIS SECTION FOCUSES ON SELECTING A SPECIFIC RECORD
+    cout << "2023/SEN/0";
+    while(!(cin >> Z))//TO ENSURE THAT INPUT IS AN INTEGER
+        {
+            cout << "Invalid input. Please enter an integer: ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+
+    string ZZ = to_string(Z);//CONVERT THE DIGITS TO STRING
+
+    if (ZZ.size() < 3 && ZZ.size() > 0)//TO ENSURE THE STRING IS LESS THAN 3 BUT GREATER THAN 0
+        {
+            std::cout << "Input is within the allowed size.\n";
+        }
+    else
+        {
+            std::cout << "INVALID NUMBER ENTERED, NOW RESTARTING PROCESS" <<"\n\n";
+            cin.clear();
+            indirecord();
+            return;
+        }
+
+    string filename = namelines[Z] + ".txt";
+    ofstream specfile;
+    specfile.open(filename);
+    specfile << "MATRICULATION NUMBER: "<<matlines[Z] << "\n";
+    specfile << "STUDENT NAME: "<<namelines[Z] << "\n";
+    specfile << "STUDENT SCORE: "<<scorelines[Z] << "\n";
+
+}
+
+
+
+void mainmenu()
+{
+    string option;
+    cout << "\n";
+    cout << "WELCOME USER, YOUR FILE MANAGEMENT SYSTEM IS OPERATIONAL" << "\n";
+    cout << "PLEASE SELECT THE CORRESPONDING OPTION TO MATCH YOUR INTENTIONS" << "\n";
+    cout << "TO DISPLAY ALL RECORDS....................R" << "\n";
+    cout << "TO ADD RECORDS............................A" << "\n";
+    cout << "TO EDIT EXISTING RECORDS..................E" << "\n";
+    cout << "TO DELETE RECORDS.........................D" << "\n";
+    cout << "TO UPDATE & SAVE RECORDS TO FILE..........S" << "\n";
+    cout << "TO CREATE FILE FOR INDIVIDUAL RECORD......I" << "\n\n";
+    cin >> option;
+    if(option == "R" || option == "r")
+
+            displayall();
+        }
+    else if(option == "A" || option == "a")
+        {
+            addrecords();
+        }
+    else if(option == "E" || option == "e")
+        {
+            updatexisting();
+        }
+    else if(option == "D" || option == "d")
+        {
+            deleterecord();
+        }
+    else if(option == "S" || option == "s")
+        {
+            saveupdates();
+        }
+    else if(option == "I" || option == "i")
+        {
+            indirecord();
+        }
+    else
+        {
+            cout << "INVALID ENTRY, RESTARTING PROCESS" << "\n\n";
+            mainmenu();
+            return;
+        }
+    mainmenu();
+
 }
 
 
@@ -245,19 +359,10 @@ int main() {
         std::cerr << "Unable to open file";
     }
 
-    // Output the contents of the vector
     displayall();
-
-
-    cout << "HERE IS THE FUNCTION TO ADD RECORDS" << "\n\n";
-    addrecords();
-    cout << "HERE IS THE FUNCTION TO EDIT RECORDS" << "\n\n";
-    updatexisting();
-    cout << "NOW A FUNCTION TO SAVE RECORDS TO FILE" << "\n\n";
-    saveupdates();
-    cout << "NOW A FUNCTION TO DISPLAY ALL RECORDS(WITH UPDATES)" << "\n\n";
-    displayall();
-
+    cout << "\n\n";
+    mainmenu();
     return 0;
 }
+
 
